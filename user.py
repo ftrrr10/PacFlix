@@ -79,7 +79,7 @@ class User:
                          self.data_user[key][1] = new_plan
                          break
                     
-                    
+
             elif(idx_cureent_plan == idx_new_plan):
                 print(f"Anda sedang berlangganan {new_plan}")
             else:
@@ -89,4 +89,32 @@ class User:
             print("New Plan tidak tersedia")
         elif(self.current_plan is None):
             print("Silahkan berlangganan terlebih dahulu")
+
+    def subs_plan(self, new_plan, code_referral):
+        list_code = [row[-1] for row in self.data_user.values()]
+
+        if(self.current_plan is None):
+
+            if(new_plan in self.list_plan):
+                self.current_plan = new_plan
+                self.duration_plan = 1
+                self.code_referral = f"{self.username}-123"
+
+                idx_new_plan = self.list_plan.index(new_plan)
+
+                if(code_referral in list_code):
+                    total = total = self.list_benefit[-1][idx_new_plan] - (self.list_benefit[-1][idx_new_plan]*0.04)
+                else:
+                    total = self.list_benefit[-1][idx_new_plan]
+                print(f"Harga yang dibayarkan untuk subs {new_plan} adalah Rp. {total} ")
+
+                last_key = max(self.data_user.keys())
+                self.data_user[last_key+1] = [self.username, self.current_plan, self.duration_plan, self.code_referral]
+
+            else:
+                print("Plan tidak ada")
+
+        else:
+            print("Anda sudah ada akun")
+
 
