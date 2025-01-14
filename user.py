@@ -47,3 +47,15 @@ class User:
         
         print("List Benefit dan Plan PacFlix")
         print(tabulate(self.list_benefit, self.headers))
+
+    def check_user_plan(self):
+        if(self.current_plan):
+            print(f"{self.username} Berlangganan {self.current_plan}")
+            print("Benefit")
+
+            idx_current_plan = self.list_plan.index(self.current_plan)
+            headers_user = [self.headers[idx_current_plan],self.headers[-1]]
+            benefit_user = [[row[idx_current_plan], row[-1]] for row in self.list_benefit]
+            print(tabulate(benefit_user, headers_user))
+        else:
+            print("Belum Berlangganan")
